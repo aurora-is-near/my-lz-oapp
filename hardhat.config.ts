@@ -51,16 +51,16 @@ const config: HardhatUserConfig = {
         ],
     },
     networks: {
-        sepolia: {
-            eid: EndpointId.SEPOLIA_V2_TESTNET,
-            url: process.env.RPC_URL_SEPOLIA || 'https://rpc.sepolia.org/',
-            accounts,
-        },
         // fuji: {
         //     eid: EndpointId.AVALANCHE_V2_TESTNET,
         //     url: process.env.RPC_URL_FUJI || 'https://rpc.ankr.com/avalanche_fuji',
         //     accounts,
         // },
+        sepolia: {
+            eid: EndpointId.SEPOLIA_V2_TESTNET,
+            url: process.env.RPC_URL_SEPOLIA || 'https://rpc.sepolia.org/',
+            accounts,
+        },
         amoy: {
             eid: EndpointId.AMOY_V2_TESTNET,
             url: process.env.RPC_URL_AMOY || 'https://polygon-amoy-bor-rpc.publicnode.com',
@@ -71,6 +71,16 @@ const config: HardhatUserConfig = {
             url: process.env.RPC_URL_AURORA_TESTNET || 'https://testnet.aurora.dev',
             accounts,
         },
+        // polygon: {
+        //     eid: EndpointId.POLYGON_V2_MAINNET,
+        //     url: process.env.RPC_URL_POLYGON || 'https://polygon.llamarpc.com',
+        //     accounts,
+        // },
+        // aurora: {
+        //     eid: EndpointId.AURORA_V2_MAINNET,
+        //     url: process.env.RPC_URL_AURORA_MAINNET || 'https://mainnet.aurora.dev',
+        //     accounts,
+        // },
     },
     namedAccounts: {
         deployer: {
