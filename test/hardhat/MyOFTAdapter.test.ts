@@ -96,7 +96,7 @@ describe('MyOFTAdapter Test', function () {
         // Fetching the native fee for the token send operation
         const [nativeFee] = await myOFTA.quoteSend(sendParam, false)
 
-        await myERC20.approve(myOFTA.address, initialAmount)
+        await myERC20.approve(myOFTA.address, tokensToSend)
 
         // Executing the send operation from myOFTA contract
         await myOFTA.send(sendParam, [nativeFee, 0], ownerA.address, { value: nativeFee })

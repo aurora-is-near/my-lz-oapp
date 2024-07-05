@@ -13,6 +13,8 @@ import { HardhatUserConfig, HttpNetworkAccountsUserConfig } from 'hardhat/types'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
+import './tasks'
+
 // Set your preferred authentication method
 //
 // If you prefer using a mnemonic, set a MNEMONIC environment variable
@@ -54,14 +56,19 @@ const config: HardhatUserConfig = {
             url: process.env.RPC_URL_SEPOLIA || 'https://rpc.sepolia.org/',
             accounts,
         },
-        fuji: {
-            eid: EndpointId.AVALANCHE_V2_TESTNET,
-            url: process.env.RPC_URL_FUJI || 'https://rpc.ankr.com/avalanche_fuji',
-            accounts,
-        },
+        // fuji: {
+        //     eid: EndpointId.AVALANCHE_V2_TESTNET,
+        //     url: process.env.RPC_URL_FUJI || 'https://rpc.ankr.com/avalanche_fuji',
+        //     accounts,
+        // },
         amoy: {
             eid: EndpointId.AMOY_V2_TESTNET,
             url: process.env.RPC_URL_AMOY || 'https://polygon-amoy-bor-rpc.publicnode.com',
+            accounts,
+        },
+        auroratestnet: {
+            eid: EndpointId.AURORA_V2_TESTNET,
+            url: process.env.RPC_URL_AURORA_TESTNET || 'https://testnet.aurora.dev',
             accounts,
         },
     },
