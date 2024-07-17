@@ -9,7 +9,7 @@ import 'hardhat-deploy'
 import 'hardhat-contract-sizer'
 import '@nomiclabs/hardhat-ethers'
 import '@layerzerolabs/toolbox-hardhat'
-import { HardhatUserConfig, HttpNetworkAccountsUserConfig } from 'hardhat/types'
+import { HardhatUserConfig, HttpNetworkAccountsUserConfig, NetworksUserConfig } from 'hardhat/types'
 
 import { EndpointId } from '@layerzerolabs/lz-definitions'
 
@@ -36,6 +36,38 @@ if (accounts == null) {
     )
 }
 
+const networks: NetworksUserConfig =
+    process.env.ENV === 'production'
+        ? {
+              polygon: {
+                  eid: EndpointId.POLYGON_V2_MAINNET,
+                  url: process.env.RPC_URL_POLYGON || 'https://polygon.llamarpc.com',
+                  accounts,
+              },
+              aurora: {
+                  eid: EndpointId.AURORA_V2_MAINNET,
+                  url: process.env.RPC_URL_AURORA_MAINNET || 'https://mainnet.aurora.dev',
+                  accounts,
+              },
+          }
+        : {
+              sepolia: {
+                  eid: EndpointId.SEPOLIA_V2_TESTNET,
+                  url: process.env.RPC_URL_SEPOLIA || 'https://rpc.sepolia.org/',
+                  accounts,
+              },
+              amoy: {
+                  eid: EndpointId.AMOY_V2_TESTNET,
+                  url: process.env.RPC_URL_AMOY || 'https://polygon-amoy-bor-rpc.publicnode.com',
+                  accounts,
+              },
+              auroratestnet: {
+                  eid: EndpointId.AURORA_V2_TESTNET,
+                  url: process.env.RPC_URL_AURORA_TESTNET || 'https://testnet.aurora.dev',
+                  accounts,
+              },
+          }
+
 const config: HardhatUserConfig = {
     solidity: {
         compilers: [
@@ -50,38 +82,7 @@ const config: HardhatUserConfig = {
             },
         ],
     },
-    networks: {
-        // fuji: {
-        //     eid: EndpointId.AVALANCHE_V2_TESTNET,
-        //     url: process.env.RPC_URL_FUJI || 'https://rpc.ankr.com/avalanche_fuji',
-        //     accounts,
-        // },
-        sepolia: {
-            eid: EndpointId.SEPOLIA_V2_TESTNET,
-            url: process.env.RPC_URL_SEPOLIA || 'https://rpc.sepolia.org/',
-            accounts,
-        },
-        amoy: {
-            eid: EndpointId.AMOY_V2_TESTNET,
-            url: process.env.RPC_URL_AMOY || 'https://polygon-amoy-bor-rpc.publicnode.com',
-            accounts,
-        },
-        auroratestnet: {
-            eid: EndpointId.AURORA_V2_TESTNET,
-            url: process.env.RPC_URL_AURORA_TESTNET || 'https://testnet.aurora.dev',
-            accounts,
-        },
-        // polygon: {
-        //     eid: EndpointId.POLYGON_V2_MAINNET,
-        //     url: process.env.RPC_URL_POLYGON || 'https://polygon.llamarpc.com',
-        //     accounts,
-        // },
-        // aurora: {
-        //     eid: EndpointId.AURORA_V2_MAINNET,
-        //     url: process.env.RPC_URL_AURORA_MAINNET || 'https://mainnet.aurora.dev',
-        //     accounts,
-        // },
-    },
+    networks,
     namedAccounts: {
         deployer: {
             default: 0, // wallet address of index[0], of the mnemonic in .env
